@@ -4,7 +4,7 @@ This role installs and configures the Graylog Sidecar agent on RHEL/CentOS, Debi
 
 ## Here be Dragons!
 
-This role adds the Elasticsearch repository to the managed system. Make sure you are not breaking existing repository configuration with this!
+This role adds the Elasticsearch repository to the managed system to install beats. Make sure you are not breaking existing repository configuration with this!
 
 ## Requirements
 
