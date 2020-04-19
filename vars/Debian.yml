@@ -1,0 +1,7 @@
+---
+graylog_sidecar_prerequisites:  
+  - apt-transport-https
+
+graylog_sidecar_install_packages: "https://github.com/Graylog2/collector-sidecar/releases/download/{{ graylog_sidecar_version }}/graylog-sidecar_{{ graylog_sidecar_version }}-1_amd64.deb"
+
+graylog_sidecar_es_repository:    "deb https://artifacts.elastic.co/packages/{{ graylog_sidecar_es_version }}.x/apt stable main"

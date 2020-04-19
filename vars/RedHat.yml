@@ -1,0 +1,12 @@
+---
+graylog_sidecar_prerequisites: []
+
+graylog_sidecar_install_packages: "https://github.com/Graylog2/collector-sidecar/releases/download/{{ graylog_sidecar_version }}/graylog-sidecar-{{ graylog_sidecar_version }}-1.x86_64.rpm"
+
+graylog_sidecar_es_repository:
+  - name:    "elastic-{{ graylog_sidecar_es_version }}.x"
+    baseurl: "https://artifacts.elastic.co/packages/{{ graylog_sidecar_es_version }}.x/yum"
+    description: "Elastic repository for {{ graylog_sidecar_es_version }}.x packages"
+    file: elastic
+    gpgcheck: yes
+    gpgkey: "{{ graylog_sidecar_es_gpgkey }}"

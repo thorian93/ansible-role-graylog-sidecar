@@ -1,0 +1,21 @@
+---
+- name: "Install RPM Key for the Elasticsearch Repository."
+  rpm_key:
+    key: "{{ graylog_sidecar_es_gpgkey }}"
+    state: present
+
+- name: "Install Elasticsearch Repository."
+  yum_repository:
+    name: "{{ item.name }}"
+    baseurl: "{{ item.baseurl }}"
+    description: "{{ item.description }}"
+    file: "{{ item.file }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+    gpgkey: "{{ item.gpgkey }}"
+    state: "present"
+  with_items: "{{ graylog_sidecar_es_repository }}"
+
+- name: Install Graylog Sidecar on RedHat.
+  package:
+    name: "{{ item }}"
+  with_items: "{{ graylog_sidecar_install_packages }}"

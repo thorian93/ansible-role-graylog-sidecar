@@ -1,0 +1,5 @@
+---
+graylog_sidecar_config_file:       /etc/graylog/sidecar/sidecar.yml
+
+graylog_sidecar_es_version:        "6"
+graylog_sidecar_es_gpgkey:         "https://packages.elastic.co/GPG-KEY-elasticsearch"

@@ -1,0 +1,43 @@
+---
+- name: Preflight - Fail if target host is not stable for this Role.
+  fail:
+    msg: "This role is not stable for the target operating system, {{ ansible_distribution }} {{ ansible_distribution_major_version }}."
+  when: (ansible_distribution is not defined) or
+        (ansible_distribution_version is not defined) or
+        (ansible_distribution+" "+ansible_distribution_major_version not in graylog_sidecar_stable_os)
+
+- name: Include OS family specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Ensure Prerequisites are present.
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ graylog_sidecar_prerequisites }}"
+  when: graylog_sidecar_prerequisites|length
+
+- name: Include OS Family specific Playbook
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: "Install Beats."
+  package:
+    name: "{{ item }}"
+    state: "present"
+  loop: "{{ graylog_sidecar_beats }}"
+  notify:
+    - "restart {{ item }}"
+
+- name: Configure Graylog Sidecar.
+  template:
+    src:  'default.j2'
+    dest: "{{ graylog_sidecar_config_file }}"
+  notify:
+    - restart graylog-sidecar
+
+- name: Gather Services Facts.
+  service_facts:
+
+- name: Install Graylog Sidecar Service.
+  command: graylog-sidecar -service install
+  when: ("graylog-sidecar" not in ansible_facts.services)
+        and ("graylog-sidecar.service" not in ansible_facts.services)

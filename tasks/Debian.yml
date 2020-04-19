@@ -1,0 +1,20 @@
+---
+- name: "Install APT Key for the Elasticsearch Repository."
+  apt_key:
+    url: "{{ graylog_sidecar_es_gpgkey }}"
+    state: present
+
+- name: "Install Elasticsearch Repository."
+  apt_repository:
+    repo: "{{ graylog_sidecar_es_repository }}"
+    state: "present"
+    update_cache: false
+
+- name: "Update APT Cache."
+  apt:
+    update_cache: true
+
+- name: Install Graylog Sidecar on Debian.
+  apt:
+    deb: "{{ item }}"
+  with_items: "{{ graylog_sidecar_install_packages }}"

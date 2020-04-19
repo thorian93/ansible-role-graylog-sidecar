@@ -1,0 +1,22 @@
+---
+# Support for OSes:
+graylog_sidecar_stable_os:
+  - Debian 9
+  - Debian 10
+  - Ubuntu 16
+  - Ubuntu 18
+  - CentOS 7
+  - CentOS 8
+  - Fedora 30
+  - Fedora 31
+
+graylog_sidecar_version: 1.0.2
+
+graylog_sidecar_config:
+  server_url: http://localhost:9000/api
+  server_api_token: foo-bar-baz-bar-foo
+  node_name: "{{ ansible_hostname }}"
+
+graylog_sidecar_beats:
+  - filebeat
+  - journalbeat
