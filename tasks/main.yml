@@ -16,7 +16,7 @@
   loop: "{{ graylog_sidecar_prerequisites }}"
   when: graylog_sidecar_prerequisites|length
 
-- name: Include OS Family specific Playbook
+- name: Include OS Family specific Playbook.
   include_tasks: "{{ ansible_os_family }}.yml"
 
 - name: "Install Beats."
